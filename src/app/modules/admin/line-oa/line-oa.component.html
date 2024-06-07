@@ -1,0 +1,21 @@
+<div class="flex flex-col flex-auto min-w-0 px-10">
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="flex flex-col w-full h-full gap-20">
+            <textarea
+                id="message"
+                class="h-full border-2 bg-slate-200 p-4"
+                contenteditable="true"
+                [(ngModel)]="message"
+            ></textarea>
+            <ul>
+                <li
+                    *ngFor="let field of fields"
+                    (click)="addFieldToMessage(field)"
+                    style="cursor: pointer"
+                >
+                    {{ field }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
