@@ -121,8 +121,8 @@ export const appRoutes: Route[] = [
             {
                 path: 'example',
                 loadChildren: () =>
-                    import('./modules/admin/line-oa/line-oa.module').then(
-                        (m) => m.LineOaModule
+                    import('./modules/admin/example/example.module').then(
+                        (m) => m.ExampleModule
                     ),
             },
         ],

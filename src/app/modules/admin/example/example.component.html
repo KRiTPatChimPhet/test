@@ -18,25 +18,26 @@
             >
                 <mat-tab label="TEXT">
                     <div class="flex flex-col w-full h-full">
-                        <!-- <div
-                            #myinput
+                        <div
+                            #myInput
                             contenteditable="true"
                             class="h-full border-2 bg-slate-200 p-4"
                             (focusout)="onFocusOut($event)"
+                            (keydown)="onKeydown($event)"
                             (input)="updatePreviewMessage($event)"
-                            [innerHTML]="textMessage"
-                        ></div> -->
+                        ></div>
 
-                        <textarea
+
+                        <!-- <textarea
                             #myinput
                             id="message"
                             class="h-full border-2 bg-slate-200 p-4"
                             contenteditable="true"
                             [(ngModel)]="message"
-                        ></textarea>
+                        ></textarea> -->
 
                         <div class="flex flex-col w-full">
-                            <!-- <mat-selection-list
+                            <mat-selection-list
                                 [multiple]="false"
                                 #shoes
                                 (selectionChange)="
@@ -55,9 +56,9 @@
 
                             <button (click)="addSelectedDatasToQuote()">
                                 Add to quote
-                            </button> -->
+                            </button>
 
-                            <ul>
+                            <!-- <ul>
                                 <li
                                     *ngFor="let data of datas"
                                     (click)="addFieldToMessage(data)"
@@ -65,7 +66,7 @@
                                 >
                                     {{ data }}
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                 </mat-tab>
@@ -135,14 +136,14 @@
                         *ngIf="selectedLabel === 'TEXT'"
                         class="rounded-2xl bg-white p-2 w-fit"
                     >
-                        <p [innerHTML]="textMessage"></p>
+                        <p [innerHTML]="textHtml"></p>
                     </div>
 
                     <div
                         *ngIf="selectedLabel === 'TEXT'"
                         class="rounded-2xl bg-white p-2 w-fit"
                     >
-                        <pre>{{ textMessage }}</pre>
+                        <pre>{{ textHtml }}</pre>
                     </div>
 
                     <div
