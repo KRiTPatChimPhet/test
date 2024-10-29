@@ -1,17 +1,9 @@
 <div>
-    <h2>Namespace 1</h2>
-    <input [(ngModel)]="message1" placeholder="Enter message for namespace1" />
-    <button (click)="sendMessageToNamespace1()">Send to Namespace 1</button>
-    <ul>
-        <li *ngFor="let msg of messagesNamespace1">{{ msg }}</li>
-    </ul>
+    <input [(ngModel)]="message1" placeholder="Enter message" />
+    <button (click)="sendMessageToNamespace1()">Send Message</button>
+    <button (click)="connectToServer()">Connect</button>
+    <button (click)="disconnectFromServer()">Disconnect</button>
 </div>
-
-<div>
-    <h2>Namespace 2</h2>
-    <input [(ngModel)]="message2" placeholder="Enter message for namespace2" />
-    <button (click)="sendMessageToNamespace2()">Send to Namespace 2</button>
-    <ul>
-        <li *ngFor="let msg of messagesNamespace2">{{ msg }}</li>
-    </ul>
-</div>
+<ul>
+    <li *ngFor="let message of messagesNamespace1">{{ message }}</li>
+</ul>

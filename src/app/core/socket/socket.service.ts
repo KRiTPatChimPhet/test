@@ -6,46 +6,36 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class SocketService {
-    private socketNamespace1: Socket;
-    private socketNamespace2: Socket;
+    private socketOrder: Socket;
 
     constructor() {
-        // เชื่อมต่อไปยัง namespace1
-        this.socketNamespace1 = io('http://localhost:3001/namespace1', {
+        this.socketOrder = io('http://localhost:3000/order', {
             transports: ['websocket'],
-        });
-
-        // เชื่อมต่อไปยัง namespace2
-        this.socketNamespace2 = io('http://localhost:3001/namespace2', {
-            transports: ['websocket'],
+            auth: {
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhODQyYTJhNGJhZTAwMTkzNmNiYTkiLCJmaXJzdE5hbWUiOiLguIHguKTguJUiLCJsYXN0TmFtZSI6IuC4m-C4seC4iOC4ieC4tOC4oeC5gOC4nuC5h-C4iuC4oyIsImRlcGFydG1lbnQiOiJBTEwiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MzAxMDY0MDQsImV4cCI6MTczMDE5MjgwNCwiYXVkIjoiTGFtdW5waGFuIiwiaXNzIjoiTGFtdW5waGFuIn0.Uo-Re5fFAoXGHMatyPDsKt7G5BihqEli-5dSQKkBuYs',
+            },
         });
     }
 
-    // ฟังก์ชันเพื่อส่งข้อความไปยัง namespace1
-    sendMessageToNamespace1(message: string) {
-        this.socketNamespace1.emit('message1', message);
+    sendMessage(message: string) {
+        this.socketOrder.emit('order', message);
     }
 
-    // ฟังก์ชันเพื่อรับข้อความจาก namespace1
-    getMessageFromNamespace1(): Observable<string> {
+    getMessage(): Observable<string> {
         return new Observable((observer) => {
-            this.socketNamespace1.on('message1', (data: string) =>
-                observer.next(data)
-            );
+            this.socketOrder.on('order', (data: string) => observer.next(data));
         });
     }
 
-    // ฟังก์ชันเพื่อส่งข้อความไปยัง namespace2
-    sendMessageToNamespace2(message: string) {
-        this.socketNamespace2.emit('message2', message);
+    connect() {
+        if (!this.socketOrder.connected) {
+            this.socketOrder.connect();
+        }
     }
 
-    // ฟังก์ชันเพื่อรับข้อความจาก namespace2
-    getMessageFromNamespace2(): Observable<string> {
-        return new Observable((observer) => {
-            this.socketNamespace2.on('message2', (data: string) =>
-                observer.next(data)
-            );
-        });
+    disconnect() {
+        if (this.socketOrder.connected) {
+            this.socketOrder.disconnect();
+        }
     }
 }
